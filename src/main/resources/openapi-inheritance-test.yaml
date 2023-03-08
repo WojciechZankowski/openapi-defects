@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI test
+  version: 1.0.0
+
+paths: { }
+
+components:
+  schemas:
+    Base:
+      type: object
+      required:
+        - category
+      properties:
+        category:
+          type: string
+          enum:
+            - FIRST
+      discriminator:
+        propertyName: category
+        mapping:
+          FIRST: '#/components/schemas/First'
+
+    First:
+      allOf:
+        - $ref: '#/components/schemas/Base'
+      required:
+        - value
+      properties:
+        value:
+          type: number
